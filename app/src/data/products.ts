@@ -37,7 +37,7 @@ export const PRODUCTS: Product[] = [
     img: "/images/jacket-wizards.png",
     bg: "bg-[#fdfaf7]",
     category: "shirts",
-    featured: true,
+    // featured: true,
   },
   {
     name: "Sakura Field Hoodie",
@@ -73,6 +73,7 @@ export const PRODUCTS: Product[] = [
     img: "/images/product-jeans.png",
     bg: "bg-[#eee8f6]",
     category: "pants",
+    featured: true,
   },
   {
     name: "Petal Knit Beanie",
