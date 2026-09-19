@@ -17,7 +17,7 @@ export default function Shop() {
   return (
     <>
       {/* header */}
-      <section className="relative overflow-hidden pb-10 pt-36 md:pt-44">
+      <section className="relative z-30 overflow-x-clip pb-10 pt-36 md:pt-44">
         <Blossom className="animate-drift absolute -left-12 top-28 h-40 w-40 opacity-70" variant={3} />
         <div className="mx-auto max-w-7xl px-5 md:px-10">
           <Reveal>
