@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* brand palette — light */
+    --navy: 30 58 92;
+    --cream: 250 248 245;
+    --sakura: 242 184 198;
+    --sakura-deep: 228 139 164;
+    --pyrate-teal: 159 200 200;
+    --pyrate-lavender: 195 179 216;
+    --white: 255 255 255;
+
+    --background: 36 33% 97%;
+    --foreground: 210 51% 24%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 51% 24%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 51% 24%;
+    --primary: 210 51% 24%;
+    --primary-foreground: 36 33% 97%;
+    --secondary: 348 64% 84%;
+    --secondary-foreground: 210 51% 24%;
+    --muted: 36 20% 93%;
+    --muted-foreground: 210 25% 42%;
+    --accent: 348 64% 84%;
+    --accent-foreground: 210 51% 24%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 210 30% 88%;
+    --input: 210 30% 85%;
+    --ring: 210 51% 24%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.9%;
+  }
+
+  .dark {
+    /* brand palette — dark: ink becomes light, paper becomes deep night navy */
+    --navy: 236 230 219;
+    --cream: 13 20 32;
+    --sakura: 242 184 198;
+    --sakura-deep: 244 165 190;
+    --pyrate-teal: 159 200 200;
+    --pyrate-lavender: 195 179 216;
+    --white: 24 36 54;
+
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-navy font-sans antialiased;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  ::selection {
+    background: #f2b8c6;
+    color: #1e3a5c;
+  }
+}
+
+/* ---------- Marquee ticker ---------- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Hero load-in ---------- */
+@keyframes hero-line {
+  from { opacity: 0; transform: translateY(110%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-line {
+  display: block;
+  overflow: hidden;
+}
+.hero-line > span {
+  display: block;
+  animation: hero-line 0.9s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+.hero-line:nth-child(2) > span { animation-delay: 0.12s; }
+.hero-line:nth-child(3) > span { animation-delay: 0.24s; }
+
+@keyframes hero-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-fade {
+  animation: hero-fade 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both;
+}
+
+@keyframes hero-zoom {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+.hero-zoom {
+  animation: hero-zoom 2.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ---------- Gentle blossom drift ---------- */
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(6deg); }
+}
+.animate-drift {
+  animation: drift 7s ease-in-out infinite;
+}
+.animate-drift-slow {
+  animation: drift 11s ease-in-out infinite;
+}
+
+/* ---------- Product card hover ---------- */
+.product-card img {
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.product-card:hover img {
+  transform: scale(1.05) rotate(-1.5deg);
+}
+
+/* ---------- Falling petals ---------- */
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 0.9; }
+  50% { transform: translate3d(var(--drift, 6vw), 45vh, 0) rotate(180deg); }
+  92% { opacity: 0.9; }
+  100% {
+    transform: translate3d(calc(var(--drift, 6vw) * -0.6), 108vh, 0) rotate(360deg);
+    opacity: 0;
+  }
+}
+.petal {
+  position: absolute;
+  top: 0;
+  display: block;
+  opacity: 0;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+/* ---------- Slow rotation (circular badge) ---------- */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee, .animate-drift, .animate-drift-slow, .animate-spin-slow,
+  .hero-line > span, .hero-fade, .hero-zoom, .petal {
+    animation: none !important;
+  }
+  .petal { opacity: 0; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
